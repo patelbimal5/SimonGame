@@ -1,5 +1,5 @@
 // alert("Working");
-var buttonColors = {"red", "blue", "yellow"};
+var buttonColors = ["red", "blue","green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 var started = false;
@@ -17,7 +17,6 @@ $(document).keypress(fucntion() {
 //--------------------------------CHECK ANSWER FUNCTION-------------------------
 function checkAnswer(currentLevel){
   if(gamePattern[currentLevel] === userClickedPattern[currentLevel]){
-    console.log("success");
     if (userClickedPattern.length === gamePattern.length)
     {
       setTimeout(function () {
@@ -25,15 +24,15 @@ function checkAnswer(currentLevel){
         }, 1000);
     }
   } else {
-      console.log("wrong");
       playSound("wrong");
 
       $("body").addClass("game-over");
+      $("#level-title").text("Game Over, Press Any Key to Restart"); //chaning h1 to press key to restart.
+
       setTimeout(function () {
         $("body").removeClass("game-over");
       }, 200); // chaning display to game over page after 2 secc
 
-      $("#level-title").text("Game Over, Press Any Key to Restart"); //chaning h1 to press key to restart.
       startOver();
     }
 }
@@ -53,6 +52,7 @@ function checkAnswer(currentLevel){
 $(".btn").click(fucntion(){
   var userChosenColor = $(this).attr("id");
   userClickedPattern.push(userChosenColor);
+
   playSound(userChosenColour);  //playing sound when user clicks.
   animatePress(userChosenColor); //flashing button animation on calling function.
   checkAnswer(userClickedPattern.length-1);
@@ -66,12 +66,12 @@ function nextSequence(){
   level++; //adding level everyting
   $("#level-title").text("Level " + level);  // chaning level to current level
 
-  var randomNumber = Math.floor( Math.random() * 4 ) + 1;
+  var randomNumber = Math.floor( Math.random() * 4 );
   var randomChosenColor = buttonColors[randomNumber];   //choosing random color using randomNumber
 
   gamePattern.push(randomChosenColour); //storing game patterns
 
-  $("#" + randomChosenColor").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100); //flasing the button which is pressed to clicked.
+  $("#" + randomChosenColor").fadeIn(100).fadeOut(100).fadeIn(100); //flasing the button which is pressed to clicked.
 
   playSound(randomChosenColor);
 }
