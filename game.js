@@ -1,18 +1,40 @@
-// alert("Working");
+//alert("Working");
+
 var buttonColors = ["red", "blue","green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 var started = false;
 var level = 0;
 
-$(document).keypress(fucntion() {
-  if(!started){
+$(document).keypress( function(){
+  if (!started) {
     //h1 title
     $("#level-title").text("Level " + level);
     nextSequence();
     started = true;
   }
 });
+
+//---------------------------BUTTON CLICK EVENT HANDER------------------------------------------------------
+// for(var i=0; i<$(".btn").length; i++){
+//   $(".btn")[i].addEventListner("click", function(){
+//     alert("I got clicked");
+//     var thisButton = this.innerHTML;
+//     userClickedPattern = $("#" + thisButton );
+//
+//     //var thisButton = this.innerHTML;
+//   });
+
+//what to do when any of btn is clicked.
+$(".btn").click( function() {
+  var userChosenColor = $(this).attr("id");
+  userClickedPattern.push(userChosenColor);
+
+  playSound(userChosenColor);  //playing sound when user clicks.
+  animatePress(userChosenColor); //flashing button animation on calling function.
+  checkAnswer(userClickedPattern.length-1);
+});
+
 
 //--------------------------------CHECK ANSWER FUNCTION-------------------------
 function checkAnswer(currentLevel){
@@ -37,27 +59,6 @@ function checkAnswer(currentLevel){
     }
 }
 
-
-//---------------------------BUTTON CLICK EVENT HANDER------------------------------------------------------
-// for(var i=0; i<$(".btn").length; i++){
-//   $(".btn")[i].addEventListner("click", function(){
-//     alert("I got clicked");
-//     var thisButton = this.innerHTML;
-//     userClickedPattern = $("#" + thisButton );
-//
-//     //var thisButton = this.innerHTML;
-//   });
-
-//what to do when any of btn is clicked.
-$(".btn").click(fucntion(){
-  var userChosenColor = $(this).attr("id");
-  userClickedPattern.push(userChosenColor);
-
-  playSound(userChosenColour);  //playing sound when user clicks.
-  animatePress(userChosenColor); //flashing button animation on calling function.
-  checkAnswer(userClickedPattern.length-1);
-});
-
 //--------------------- NEXT SEQUENCE FUNCTION--------------------
 function nextSequence(){
 
@@ -69,9 +70,9 @@ function nextSequence(){
   var randomNumber = Math.floor( Math.random() * 4 );
   var randomChosenColor = buttonColors[randomNumber];   //choosing random color using randomNumber
 
-  gamePattern.push(randomChosenColour); //storing game patterns
+  gamePattern.push(randomChosenColor); //storing game patterns
 
-  $("#" + randomChosenColor").fadeIn(100).fadeOut(100).fadeIn(100); //flasing the button which is pressed to clicked.
+  $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100); //flasing the button which is pressed to clicked.
 
   playSound(randomChosenColor);
 }
