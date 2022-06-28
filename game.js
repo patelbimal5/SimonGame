@@ -15,15 +15,14 @@ $(document).keypress( function(){
   }
 });
 
-//---------------------------BUTTON CLICK EVENT HANDER------------------------------------------------------
-// for(var i=0; i<$(".btn").length; i++){
-//   $(".btn")[i].addEventListner("click", function(){
-//     alert("I got clicked");
-//     var thisButton = this.innerHTML;
-//     userClickedPattern = $("#" + thisButton );
-//
-//     //var thisButton = this.innerHTML;
-//   });
+function playGame(){
+  if (!started) {
+    //h1 title
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    started = true;
+  }
+}
 
 //what to do when any of btn is clicked.
 $(".btn").click( function() {
